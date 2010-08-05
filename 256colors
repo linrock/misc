@@ -1,0 +1,10 @@
+#!/bin/bash
+for i in {0..15}; do
+    row=
+    for j in {1..16}; do
+        color=$(( $i*16 + $j -1 ))
+        code="\033[00;38;5;${color}m${color}"
+        row=$row"\t"$code
+    done
+    echo -e $row
+done
