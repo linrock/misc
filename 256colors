@@ -1,10 +1,19 @@
 #!/bin/bash
+
 for i in {0..15}; do
     row=
     for j in {1..16}; do
         color=$(( $i*16 + $j -1 ))
         code="\033[00;38;5;${color}m${color}"
-        row=$row"\t"$code
+        if [[ $row == "" ]]; then
+            row=$code
+        elif [[ $color -lt 11 ]]; then
+            row="$row\x20\x20\x20$code"
+        elif [[ $color -lt 101 ]]; then
+            row="$row\x20\x20$code"
+        else
+            row="$row $code"
+        fi
     done
     echo -e $row
 done
